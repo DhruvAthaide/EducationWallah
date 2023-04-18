@@ -59,6 +59,24 @@ const Header = () => {
               </a>
             </li>
             <li>
+              <a
+                rel="noreferrer"
+                target="_blank"
+                href="https://todo-sammy.netlify.app/"
+              >
+                Planner
+              </a>
+            </li>
+            <li>
+              <a
+                rel="noreferrer"
+                target="_blank"
+                href="https://talk.brave.com/ElQFR6Umnp9Bmlp2lspomyHfj8HlVzvGu04gROV4Ux4"
+              >
+                Live event
+              </a>
+            </li>
+            <li>
               <Link to="/contact">Contact</Link>
             </li>
           </ul>
