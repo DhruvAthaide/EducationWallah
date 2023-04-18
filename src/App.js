@@ -1,6 +1,6 @@
 import "./App.css";
 import Header from "./components/common/header/Header";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import About from "./components/about/About";
 import CourseHome from "./components/allcourses/CourseHome";
 import Contact from "./components/contact/Contact";
@@ -11,7 +11,14 @@ import Authentication from "./components/authentication/Authentication";
 function App() {
   return (
     <>
-      <Router>
+      <Route path="/" component={Authentication} />
+    </>
+  );
+}
+
+export default App;
+
+/* <Router>
         <Header />
         <Switch>
           <Route exact path="/" component={Home} />
@@ -20,9 +27,4 @@ function App() {
           <Route exact path="/contact" component={Contact} />
         </Switch>
         <Footer />
-      </Router>
-    </>
-  );
-}
-
-export default App;
+      </Router> */

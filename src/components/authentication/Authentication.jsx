@@ -1,64 +1,129 @@
-import React from "react";
+import React, { useState } from "react";
 import "./authentication.css";
 
+const defaultSignUpFields = {
+  displayName: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
+
+const defaultSignInFields = {
+  signInEmail: "",
+  signInPassword: "",
+};
+
 export default function Authentication() {
+  const [signUpFields, setSignUpFields] = useState(defaultSignUpFields);
+  const [signInFields, setSignInFields] = useState(defaultSignInFields);
+
+  const handleSignUpChange = (event) => {
+    const { name, value } = event.target;
+
+    setSignUpFields({ ...signUpFields, [name]: value });
+  };
+
+  const handleSignInChange = (event) => {
+    const { name, value } = event.target;
+
+    setSignInFields({ ...signInFields, [name]: value });
+  };
+
   return (
     <div>
-      <div className="wrapper">
-        <div className="title-text">
-          <div className="title login">Login Form</div>
-          <div className="title signup">Signup Form</div>
-        </div>
-        <div className="form-container">
-          <div className="slide-controls">
-            <input type="radio" name="slide" id="login" checked />
-            <input type="radio" name="slide" id="signup" />
-            <label htmlFor="login" className="slide login">
-              Login
-            </label>
-            <label htmlFor="signup" className="slide signup">
-              Signup
-            </label>
-            <div className="slider-tab"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 mb-5">
+            <div class="card shadow p-5 animated zoomIn slow">
+              <h3 class="text-center font-weight-bold text-uppercase mb-3">
+                SIGN UP
+              </h3>
+
+              <form>
+                <div class="form-group">
+                  <label>Enter Username</label>
+                  <input type="text" name="displayName" class="form-control" />
+                </div>
+                <div class="form-group">
+                  <label>Enter Email</label>
+                  <input
+                    type="email"
+                    onChange={handleSignUpChange}
+                    name="email"
+                    class="form-control"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Enter Password</label>
+                  <input
+                    type="password"
+                    onChange={handleSignUpChange}
+                    name="password"
+                    class="form-control"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Confirm Password</label>
+                  <input
+                    type="password"
+                    onChange={handleSignUpChange}
+                    name="confirmPassword"
+                    class="form-control"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  class="btn btn-outline-dark btn-block rounded-pill"
+                >
+                  Register
+                </button>
+              </form>
+            </div>
           </div>
-          <div className="form-inner">
-            <form action="#" className="login">
-              <div className="field">
-                <input type="text" placeholder="Email Address" required />
+          <div class="col-md-6 mb-5">
+            <div class="card shadow animated zoomIn slow p-5">
+              <h3 class="text-center font-weight-bold text-uppercase mb-3">
+                Login Here
+              </h3>
+
+              <form>
+                <div class="form-group">
+                  <label>Enter Email</label>
+                  <input
+                    type="text"
+                    onChange={handleSignInChange}
+                    name="signInEmail"
+                    class="form-control"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Enter Password</label>
+                  <input
+                    type="password"
+                    name="signInPassword"
+                    onChange={handleSignInChange}
+                    class="form-control"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  class="btn btn-outline-dark btn-block rounded-pill"
+                >
+                  Login
+                </button>
+              </form>
+              <h6 class="mt-3">
+                Don't have an account? <a href="#"> Create Account Here</a>
+              </h6>
+              <p class="text-center mt-3"> or Login with</p>
+              <p></p>
+              <div class="text-center">
+                <i class="fab fa-facebook mx-2 fa-2x"></i>
+                <i class="fab fa-twitter  mx-2 fa-2x"></i>
+                <i class="fab fa-instagram  mx-2 fa-2x"></i>
+                <i class="fab fa-google  mx-2 fa-2x"></i>
               </div>
-              <div className="field">
-                <input type="password" placeholder="Password" required />
-              </div>
-              <div className="pass-link">
-                <a href="#">Forgot password?</a>
-              </div>
-              <div className="field btn">
-                <div className="btn-layer"></div>
-                <input type="submit" value="Login" />
-              </div>
-              <div className="signup-link">
-                Not a member? <a href="">Signup now</a>
-              </div>
-            </form>
-            <form action="#" className="signup">
-              <div className="field">
-                <input type="text" placeholder="Email Address" required />
-              </div>
-              <div className="field">
-                <input type="password" placeholder="Password" required />
-              </div>
-              <div className="field">
-                <input
-                  type="password"
-                  placeholder="Confirm password"
-                  required
-                />
-              </div>
-              <div className="field btn">
-                <div className="btn-layer"></div>
-                <input type="submit" value="Signup" />
-              </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
