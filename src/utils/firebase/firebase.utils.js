@@ -10,16 +10,7 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 
-import {
-  doc,
-  getDoc,
-  setDoc,
-  getFirestore,
-  collection,
-  writeBatch,
-  query,
-  getDocs,
-} from "firebase/firestore";
+import { doc, getDoc, setDoc, getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA4k5N8YHUR3t_LpSjzBxwbUFPwVkwUOgI",
