@@ -1,23 +1,37 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./authentication.styles.css";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../contexts/user.context";
+
+import {
+  createAuthUserWithEmailAndPassword,
+  createUserDocumentFromAuth,
+  signInAuthUserWithEmailAndPassword,
+} from "../../utils/firebase/firebase.utils";
 
 const defaultSignUpFields = {
-  fullname: "",
+  displayName: "",
   email: "",
   password: "",
-  confirmpassword: "",
+  confirmPassword: "",
 };
 
 const defaultSignInFields = {
-  email: "",
-  password: "",
+  signInEmail: "",
+  signInPassword: "",
 };
 
 export default function Authentication() {
+  const { currentUser } = useContext(UserContext);
   // This state is used to toggle between sign-in and sign-up page.
   const [content, setContent] = useState(undefined);
   const [signUpFields, setSignUpFields] = useState(defaultSignUpFields);
   const [signInFields, setSignInFields] = useState(defaultSignInFields);
+
+  const { password, email, confirmPassword, displayName } = signUpFields;
+  const { signInEmail, signInPassword } = signInFields;
+
+  const navigate = useNavigate();
 
   function handleSignUpFieldsChange(event) {
     const { name, value } = event.target;
@@ -25,20 +39,77 @@ export default function Authentication() {
     setSignUpFields({ ...signUpFields, [name]: value });
   }
 
+  const resetSignUpFields = () => {
+    console.log("Clear initiated");
+    setSignUpFields(defaultSignUpFields);
+  };
+
   function handleSignInFieldsChange(event) {
     const { name, value } = event.target;
 
-    setSignInFields({ ...signUpFields, [name]: value });
+    setSignInFields({ ...signInFields, [name]: value });
   }
 
   const toggle = () => {
     setContent((value) => (value === "sign-in" ? "sign-up" : "sign-in"));
   };
 
+  const handleSignUpSubmit = async (event) => {
+    event.preventDefault();
+
+    if (password !== confirmPassword) return;
+
+    try {
+      const response = await createAuthUserWithEmailAndPassword(
+        email,
+        password
+      );
+      const { user } = response;
+      createUserDocumentFromAuth(user, displayName);
+      resetSignUpFields();
+      setContent("sign-in");
+    } catch (error) {
+      if (error.code === "auth/email-already-in-use") {
+        alert("Email already in use!");
+      }
+    }
+  };
+
+  const handleSignInSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const { user } = await signInAuthUserWithEmailAndPassword(
+        signInEmail,
+        signInPassword
+      );
+
+      // resetFields();
+    } catch (error) {
+      switch (error.code) {
+        case "auth/wrong-password":
+          alert("Wrong password or email");
+          break;
+        case "auth/user-not-found":
+          alert("No user found with associated email");
+          break;
+
+        default:
+          console.log(error.code);
+          break;
+      }
+
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     setTimeout(() => {
       setContent("sign-in");
     }, 200);
+    if (currentUser) {
+      navigate("/home");
+    }
   }, []);
 
   return (
@@ -47,13 +118,13 @@ export default function Authentication() {
         <div className="row">
           <div className="col align-items-center flex-col sign-up">
             <div className="form-wrapper align-items-center">
-              <form onSubmit={null}>
+              <form onSubmit={handleSignUpSubmit}>
                 <div className="form sign-up">
                   <div className="input-group">
                     <i className="bx bxs-user"></i>
                     <input
                       type="text"
-                      name="fullname"
+                      name="displayName"
                       placeholder="Full Name"
                       onChange={handleSignUpFieldsChange}
                     />
@@ -72,6 +143,7 @@ export default function Authentication() {
                     <input
                       type="password"
                       name="password"
+                      minLength={7}
                       placeholder="Password"
                       onChange={handleSignUpFieldsChange}
                     />
@@ -80,7 +152,8 @@ export default function Authentication() {
                     <i className="bx bxs-lock-alt"></i>
                     <input
                       type="password"
-                      name="confirmpassword"
+                      minLength={7}
+                      name="confirmPassword"
                       placeholder="Confirm password"
                       onChange={handleSignUpFieldsChange}
                     />
@@ -99,13 +172,13 @@ export default function Authentication() {
           </div>
           <div className="col align-items-center flex-col sign-in">
             <div className="form-wrapper align-items-center">
-              <form onSubmit={null}>
+              <form onSubmit={handleSignInSubmit}>
                 <div className="form sign-in">
                   <div className="input-group">
                     <i className="bx bxs-user"></i>
                     <input
                       type="email"
-                      name="email"
+                      name="signInEmail"
                       onChange={handleSignInFieldsChange}
                       placeholder="Email"
                     />
@@ -114,15 +187,13 @@ export default function Authentication() {
                     <i className="bx bxs-lock-alt"></i>
                     <input
                       type="password"
-                      name="password"
+                      name="signInPassword"
                       onChange={handleSignInFieldsChange}
                       placeholder="Password"
                     />
                   </div>
                   <button id="main-signin">Sign in</button>
-                  <button type="button" id="main-google-signin">
-                    Google Sign In
-                  </button>
+
                   <p>
                     <b onClick={null} className="pointer">
                       Forgot password?
