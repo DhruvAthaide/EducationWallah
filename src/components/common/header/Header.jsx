@@ -55,7 +55,7 @@ const Header = () => {
               <a
                 rel="noreferrer"
                 target="_blank"
-                href="https://deadsimplechat.com/QJ2EZ9_3X"
+                href="https://deadsimplechat.com/Pv0g68xdf"
               >
                 Chatroom
               </a>
