@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import "./authentication.styles.css";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../contexts/user.context";
 
 import {
   createAuthUserWithEmailAndPassword,
@@ -22,7 +21,6 @@ const defaultSignInFields = {
 };
 
 export default function Authentication() {
-  const { currentUser } = useContext(UserContext);
   // This state is used to toggle between sign-in and sign-up page.
   const [content, setContent] = useState(undefined);
   const [signUpFields, setSignUpFields] = useState(defaultSignUpFields);
@@ -38,11 +36,6 @@ export default function Authentication() {
 
     setSignUpFields({ ...signUpFields, [name]: value });
   }
-
-  const resetSignUpFields = () => {
-    console.log("Clear initiated");
-    setSignUpFields(defaultSignUpFields);
-  };
 
   function handleSignInFieldsChange(event) {
     const { name, value } = event.target;
@@ -66,7 +59,7 @@ export default function Authentication() {
       );
       const { user } = response;
       createUserDocumentFromAuth(user, displayName);
-      resetSignUpFields();
+      setSignUpFields(defaultSignUpFields);
       setContent("sign-in");
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
@@ -83,7 +76,9 @@ export default function Authentication() {
         signInEmail,
         signInPassword
       );
-
+      if (user) {
+        navigate("home");
+      }
       // resetFields();
     } catch (error) {
       switch (error.code) {
@@ -107,9 +102,6 @@ export default function Authentication() {
     setTimeout(() => {
       setContent("sign-in");
     }, 200);
-    if (currentUser) {
-      navigate("/home");
-    }
   }, []);
 
   return (
