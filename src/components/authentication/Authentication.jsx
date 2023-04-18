@@ -113,7 +113,7 @@ export default function Authentication() {
                 </button>
               </form>
               <h6 class="mt-3">
-                Don't have an account? <a href="#"> Create Account Here</a>
+                 <a href="#">Admin Login</a>
               </h6>
               <p class="text-center mt-3"> or Login with</p>
               <p></p>

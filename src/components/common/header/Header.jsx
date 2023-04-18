@@ -33,7 +33,7 @@ const Header = () => {
                 Deaf?
               </a>
             </li>
-            <li>
+            {currentUser && (<li>
               <a
                 href="https://script.google.com/macros/s/AKfycbxDUK6bsxzF13bxMClsm23XNZjgsxH1RtfuXR4Df1DJepW2yfY8nCla1jK8OV0oLXWS/exec"
                 target="_blank"
@@ -41,7 +41,7 @@ const Header = () => {
               >
                 Submission
               </a>
-            </li>
+            </li>)}
             <li>
               <a
                 rel="noreferrer"
@@ -51,7 +51,7 @@ const Header = () => {
                 Learning Tree
               </a>
             </li>
-            <li>
+            {currentUser &&(<li>
               <a
                 rel="noreferrer"
                 target="_blank"
@@ -59,8 +59,8 @@ const Header = () => {
               >
                 Chatroom
               </a>
-            </li>
-            <li>
+            </li>)}
+            {currentUser && (<li>
               <a
                 rel="noreferrer"
                 target="_blank"
@@ -68,8 +68,8 @@ const Header = () => {
               >
                 Planner
               </a>
-            </li>
-            <li>
+            </li>)}
+            {currentUser && (<li>
               <a
                 rel="noreferrer"
                 target="_blank"
@@ -77,17 +77,13 @@ const Header = () => {
               >
                 Live event
               </a>
-            </li>
+            </li>)}
             <li>
               <Link to="/contact">Contact</Link>
             </li>
           </ul>
           
-          {/* <Link to="/auth" >
-          <div color="red" className="start">
-            <div className="button">LOG IN</div>
-          </div>
-          </Link> */}
+          
 
         {currentUser ? (<div onClick={()=>{signOutUser(); window.location.assign('/auth') }} color="red" className="start">
           <div className="button">LOG OUT</div>
