@@ -12,7 +12,7 @@
   --insta-color: #e1306c;
 }
 
-.container {
+.auth-container {
   position: relative;
   min-height: 100vh;
   overflow: hidden;
@@ -168,12 +168,12 @@
   cursor: pointer;
 }
 
-.container.sign-in .form.sign-in,
-.container.sign-in .social-list.sign-in,
-.container.sign-in .social-list.sign-in > div,
-.container.sign-up .form.sign-up,
-.container.sign-up .social-list.sign-up,
-.container.sign-up .social-list.sign-up > div {
+.auth-container.sign-in .form.sign-in,
+.auth-container.sign-in .social-list.sign-in,
+.auth-container.sign-in .social-list.sign-in > div,
+.auth-container.sign-up .form.sign-up,
+.auth-container.sign-up .social-list.sign-up,
+.auth-container.sign-up .social-list.sign-up > div {
   transform: scale(1);
 }
 
@@ -222,17 +222,17 @@
   transform: translateX(250%);
 }
 
-.container.sign-in .text.sign-in h2,
-.container.sign-in .text.sign-in p,
-.container.sign-in .img.sign-in img,
-.container.sign-up .text.sign-up h2,
-.container.sign-up .text.sign-up p,
-.container.sign-up .img.sign-up img {
+.auth-container.sign-in .text.sign-in h2,
+.auth-container.sign-in .text.sign-in p,
+.auth-container.sign-in .img.sign-in img,
+.auth-container.sign-up .text.sign-up h2,
+.auth-container.sign-up .text.sign-up p,
+.auth-container.sign-up .img.sign-up img {
   transform: translateX(0);
 }
 
 /* BACKGROUND */
-.container::before {
+.auth-container::before {
   content: "";
   position: absolute;
   top: 0;
@@ -252,19 +252,19 @@
   border-top-left-radius: max(50vw, 50vh);
 }
 
-.container.sign-in::before {
+.auth-container.sign-in::before {
   transform: translate(0, 0);
   right: 50%;
 }
 
-.container.sign-up::before {
+.auth-container.sign-up::before {
   transform: translate(100%, 0);
   right: 50%;
 }
 @media only screen and (max-width: 425px) {
-  .container::before,
-  .container.sign-in::before,
-  .container.sign-up::before {
+  .auth-container::before,
+  .auth-container.sign-in::before,
+  .auth-container.sign-up::before {
     height: 100vh;
     border-bottom-right-radius: 0;
     border-top-left-radius: 0;
@@ -272,8 +272,8 @@
     transform: none;
     right: 0;
   }
-  .container.sign-in .col.sign-in,
-  .container.sign-up .col.sign-up {
+  .auth-container.sign-in .col.sign-in,
+  .auth-container.sign-up .col.sign-up {
     transform: translateY(0);
   }
 

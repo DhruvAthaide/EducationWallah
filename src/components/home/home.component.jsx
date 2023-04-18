@@ -13,14 +13,3 @@ export default function Home() {
 
   return <div>Home</div>;
 }
-
-// export default function Home() {
-// const { currentUser } = useContext(UserContext);
-// const navigate = useNavigate();
-// useEffect(() => {
-//   if (!currentUser) {
-//     navigate("/");
-//   }
-// }, []);
-//   return <div>Home</div>;
-// }

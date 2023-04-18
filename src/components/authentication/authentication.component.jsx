@@ -106,7 +106,7 @@ export default function Authentication() {
 
   return (
     <>
-      <div id="container" className={`container ${content}`}>
+      <div id="auth-container" className={`auth-container ${content}`}>
         <div className="row">
           <div className="col align-items-center flex-col sign-up">
             <div className="form-wrapper align-items-center">
