@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./authentication.styles.css";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../contexts/user.context";
 
 import {
   createAuthUserWithEmailAndPassword,
@@ -21,6 +22,7 @@ const defaultSignInFields = {
 };
 
 export default function Authentication() {
+  const { currentUser } = useContext(UserContext);
   // This state is used to toggle between sign-in and sign-up page.
   const [content, setContent] = useState(undefined);
   const [signUpFields, setSignUpFields] = useState(defaultSignUpFields);
@@ -28,6 +30,8 @@ export default function Authentication() {
 
   const { password, email, confirmPassword, displayName } = signUpFields;
   const { signInEmail, signInPassword } = signInFields;
+
+  const navigate = useNavigate();
 
   function handleSignUpFieldsChange(event) {
     const { name, value } = event.target;
@@ -103,6 +107,9 @@ export default function Authentication() {
     setTimeout(() => {
       setContent("sign-in");
     }, 200);
+    if (currentUser) {
+      navigate("/home");
+    }
   }, []);
 
   return (
