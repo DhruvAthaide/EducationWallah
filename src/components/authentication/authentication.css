@@ -1,0 +1,12 @@
+h3 {
+  font-family: sans-sarif;
+}
+
+.row {
+  min-height: 100vh;
+  align-items: center;
+}
+
+.container {
+  margin: auto;
+}
