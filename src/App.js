@@ -8,6 +8,7 @@ import Pricing from "./components/pricing/Pricing"
 import Blog from "./components/blog/Blog"
 import Contact from "./components/contact/Contact"
 import Footer from "./components/common/footer/Footer"
+import Authentication from "./components/auth/Authentication"
 import Home from "./components/home/Home"
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Header />
         <Switch>
           <Route exact path='/' component={Home} />
+          <Route exact path='/auth' component={Authentication} />
           <Route exact path='/about' component={About} />
           <Route exact path='/courses' component={CourseHome} />
           <Route exact path='/team' component={Team} />
