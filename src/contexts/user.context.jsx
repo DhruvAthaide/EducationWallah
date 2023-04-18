@@ -3,7 +3,7 @@ import {
   createUserDocumentFromAuth,
   onAuthStateChangedListener,
 } from "../utils/firebase/firebase.utils";
-
+import { useNavigation } from "react-router-dom";
 export const UserContext = createContext({
   currentUser: null,
   setCurrentUser: () => null,
@@ -20,6 +20,7 @@ export const UserProvider = ({ children }) => {
       }
 
       setCurrentUser(user);
+
       console.log(user);
     });
 

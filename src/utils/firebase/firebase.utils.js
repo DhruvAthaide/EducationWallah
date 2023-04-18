@@ -42,6 +42,7 @@ export const createUserDocumentFromAuth = async (userAuth, displayName) => {
         email,
         createdAt,
         displayName,
+        points: 0,
       });
     } catch (error) {
       console.log(error);
