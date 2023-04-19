@@ -1,58 +1,65 @@
-import React, { useState, useContext, useEffect } from 'react'
-import { createAuthUserWithEmailAndPassword, signInAuthUserWithEmailAndPassword } from 'src/firebase.utils';
-import './authentication.css'
+import React, { useState, useContext, useEffect } from 'react';
+import {
+  createAuthUserWithEmailAndPassword,
+  signInAuthUserWithEmailAndPassword,
+} from 'src/firebase.utils';
+import './authentication.css';
 import { useNavigate } from 'react-router';
 import { UserContext } from 'src/contexts/user.context';
-const defaultFields = {
-    email: "",
-    password: ""
-}
 
 export default function Authentication() {
-    const [formFields, setFormFields] = useState(defaultFields);
-    const {email,password} = formFields;
-    const navigate = useNavigate()
-    const {currentUser} = useContext(UserContext)
+  const [emailField, setEmailField] = useState('');
+  const [passwordField, setPasswordField] = useState('');
 
-    useEffect(()=> {
-        // signInAuthUserWithEmailAndPassword("admin@gmail.com", "admin123")
-        if (currentUser) {
-            navigate("/dashboard")
-        }
-    }, [])
+  const navigate = useNavigate();
+  const { currentUser } = useContext(UserContext);
 
-    const handleChange = (event) => {
-        const {name, value} = event.target;
-        setFormFields({ ...defaultFields, [name]: value });
+  useEffect(() => {
+    // signInAuthUserWithEmailAndPassword('admin@gmail.com', 'admin123');
+    if (currentUser) {
+      navigate('/dashboard');
     }
+  }, []);
 
-    const handleSignIn = (event) => {
-        console.log(email)
-        event.preventDefault();
-        const {user} = signInAuthUserWithEmailAndPassword(email,password);
-        if (user) {
-            navigate("/dashboard")
-        }
+  const handleSignIn = (event) => {
+    event.preventDefault();
+    // console.log(email);
+    const { user } = signInAuthUserWithEmailAndPassword(emailField, passwordField);
+    if (user) {
+      navigate('/dashboard');
     }
+  };
 
   return (
     <div>
-    <form onSubmit={handleSignIn} >
-      <div className="container">
-        <h1>Admin Login</h1>
-        <label htmlFor="email"><b>Username</b></label>
-        <input type="email" placeholder="Enter Username" onChange={handleChange} name="email" required />
-        <label htmlFor="password"><b>Password</b></label>
-        <input
-        onChange={handleChange}
-          type="password"
-          placeholder="Enter Password"
-          name="password"
-          required
-        />
-        <button type="submit">Login</button>
-      </div>
-    </form>
+      <form onSubmit={handleSignIn}>
+        <div className="container">
+          <h1>Admin Login</h1>
+          <label htmlFor="email">
+            <b>Username</b>
+          </label>
+          <input
+            type="email"
+            placeholder="Enter Email"
+            value={emailField}
+            onChange={(e) => setEmailField(e.target.value)}
+            name="email"
+            required
+          />
+          <label htmlFor="password">
+            <b>Password</b>
+          </label>
+          <input
+            onChange={(e) => setPasswordField(e.target.value)}
+            type="password"
+            value={passwordField}
+            placeholder="Enter Password"
+            name="password"
+            required
+          />
+          <button type="submit">Login</button>
+        </div>
+      </form>
     </div>
-  )
+  );
 }

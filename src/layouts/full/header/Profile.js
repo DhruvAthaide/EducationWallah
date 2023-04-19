@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Avatar,
@@ -8,10 +8,10 @@ import {
   IconButton,
   MenuItem,
   ListItemIcon,
-  ListItemText
+  ListItemText,
 } from '@mui/material';
 
-
+import { UserContext } from 'src/contexts/user.context';
 
 import { signOutUser } from 'src/firebase.utils';
 
@@ -27,7 +27,9 @@ const Profile = () => {
   const handleClose2 = () => {
     setAnchorEl2(null);
   };
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  const { setCurrentUser } = useContext(UserContext);
 
   return (
     <Box>
@@ -70,9 +72,19 @@ const Profile = () => {
           },
         }}
       >
-        
         <Box mt={1} py={1} px={2}>
-          <Button onClick={()=>{signOutUser(); navigate("/auth")}} to="/auth/login" variant="outlined" color="primary" component={Link} fullWidth>
+          <Button
+            onClick={() => {
+              signOutUser();
+              setCurrentUser(null);
+              navigate('/auth');
+            }}
+            to="/auth/login"
+            variant="outlined"
+            color="primary"
+            component={Link}
+            fullWidth
+          >
             Logout
           </Button>
         </Box>
