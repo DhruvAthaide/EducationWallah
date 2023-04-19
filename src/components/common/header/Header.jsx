@@ -30,7 +30,7 @@ const Header = () => {
                 target="_blank"
                 rel="noreferrer"
               >
-                Deaf?
+                Hearing Impaired
               </a>
             </li>
             {currentUser && (<li>
