@@ -90,6 +90,7 @@ const Header = () => {
             <li>
               <Link to="/contact">Contact</Link>
             </li>
+            {/* Change 'true' to false to not display badges */}
             {currentUser && true && (<img width={100} height={50} alt="level" src="https://i.ibb.co/vZXYJns/lvl3.png" />)}
           </ul>
           
