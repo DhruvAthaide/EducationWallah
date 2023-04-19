@@ -90,7 +90,7 @@ const Footer = () => {
       </footer>
       <div className='legal'>
         <p>
-          Copyright ©2022 All rights reserved | This template is made with <i className='fa fa-heart'></i> by Team 7
+          Copyright ©2023 All rights reserved | This website is made with by Team 7 <i className='fa fa-heart'></i>
         </p>
       </div>
     </>
