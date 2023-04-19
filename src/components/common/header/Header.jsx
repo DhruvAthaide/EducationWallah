@@ -78,9 +78,19 @@ const Header = () => {
                 Live event
               </a>
             </li>)}
+            {currentUser && (<li>
+              <a
+                rel="noreferrer"
+                target="_blank"
+                href="https://chatbot.hellotars.com/conv/SoC7j-"
+              >
+                Chat Bot
+              </a>
+            </li>)}
             <li>
               <Link to="/contact">Contact</Link>
             </li>
+            {currentUser && (<img width={100} height={50} alt="level" src="https://i.ibb.co/vZXYJns/lvl3.png" />)}
           </ul>
           
           

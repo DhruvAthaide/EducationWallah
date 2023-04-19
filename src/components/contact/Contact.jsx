@@ -76,7 +76,7 @@ const Contact = () => {
               ></textarea>
               <label>Feedback (Optional):</label>
               <textarea
-                name="FEEDBACK FROM USERs"
+                name="FEEDBACK FROM USER"
                 rows="4"
                 placeholder="Enter your feedback here"
               ></textarea>
