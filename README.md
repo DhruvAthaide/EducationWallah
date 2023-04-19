@@ -17,9 +17,9 @@ This is a Smart Educational Website, it is an educational website for students a
 
 - Firebase
 
--Icon-Materials
+- Icon-Materials
 
--React DOM
+- React DOM
 
 
 ## Team 7 GitHub Repositories:
