@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState,   } from "react";
 import "./authentication.css";
+
+import {createAuthUserWithEmailAndPassword, createUserDocumentFromAuth, signInAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils"
 
 const defaultSignUpFields = {
   displayName: "",
@@ -16,6 +18,58 @@ const defaultSignInFields = {
 export default function Authentication() {
   const [signUpFields, setSignUpFields] = useState(defaultSignUpFields);
   const [signInFields, setSignInFields] = useState(defaultSignInFields);
+  const { email,password,confirmPassword, displayName } = signUpFields;
+  const {signInEmail,signInPassword} = signInFields
+
+  const handleSignUpSubmit = async (event) => {
+    event.preventDefault();
+
+    if (password !== confirmPassword) return;
+
+    try {
+      const response = await createAuthUserWithEmailAndPassword(
+        email,
+        password
+      );
+      const { user } = response;
+      createUserDocumentFromAuth(user, displayName);
+      //   resetSignUpFields();
+    } catch (error) {
+      if (error.code === "auth/email-already-in-use") {
+        alert("Email already in use!");
+      }
+    }
+  };
+
+  const handleSignInSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const { user } = await signInAuthUserWithEmailAndPassword(
+        signInEmail,
+        signInPassword
+      );
+      if (user) {
+        // history.push("/");
+      }
+    } catch (error) {
+      switch (error.code) {
+        case "auth/wrong-password":
+          alert("Wrong password or email");
+          break;
+        case "auth/user-not-found":
+          alert("No user found with associated email");
+          break;
+
+        default:
+          console.log(error.code);
+          break;
+      }
+
+      console.log(error);
+    }
+  };
+  
 
   const handleSignUpChange = (event) => {
     const { name, value } = event.target;
@@ -39,10 +93,10 @@ export default function Authentication() {
                 SIGN UP
               </h3>
 
-              <form>
+              <form onSubmit={handleSignUpSubmit} >
                 <div class="form-group">
                   <label>Enter Username</label>
-                  <input type="text" name="displayName" class="form-control" />
+                  <input type="text" name="displayName" onChange={handleSignUpChange} class="form-control" />
                 </div>
                 <div class="form-group">
                   <label>Enter Email</label>
@@ -86,7 +140,7 @@ export default function Authentication() {
                 Login Here
               </h3>
 
-              <form>
+              <form onChange={handleSignInSubmit} >
                 <div class="form-group">
                   <label>Enter Email</label>
                   <input
@@ -112,8 +166,8 @@ export default function Authentication() {
                   Login
                 </button>
               </form>
-              <h6 class="mt-3">
-                 <a href="#">Admin Login</a>
+              <h6>
+                 <a href="#"></a>
               </h6>
               <p class="text-center mt-3"> or Login with</p>
               <p></p>
