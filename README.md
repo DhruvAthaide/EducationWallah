@@ -26,7 +26,7 @@ This is a Smart Educational Website, it is an educational website for students a
 
 We have also attached the Admin Panel in the Admin-Panel Branch of this Repository!
 
-[Admin Panel Branch](https://github.com/Sammmy22/tech-hack-project/tree/admin-panel)
+[Admin Panel Branch](https://github.com/DhruvAthaide/EducationWallah/tree/adminpanel)
 
 Because we are using React JS and Firebase, we have separate dependencies and versions for both of the panels, so we have two different repositories for our tech hack problem statement. Therefore, we have presented our Problem Statement on two separate Websites. 
 
